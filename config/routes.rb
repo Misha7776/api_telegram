@@ -2,8 +2,10 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  resources :users, param: :_username
-  post '/auth/login', to: 'authentication#login'
+  namespace :api do
+    resources :admins
+    post '/auth/login', to: 'authentication#login'
+  end
   get '/*a', to: 'application#not_found'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
