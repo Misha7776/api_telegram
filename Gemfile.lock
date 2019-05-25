@@ -285,6 +285,8 @@ GEM
       tty-which (~> 0.4.0)
       virtus (~> 1.0)
     safe_yaml (1.0.5)
+    secure_credentials (0.2.2)
+      activesupport (~> 5.1)
     sexp_processor (4.12.0)
     sidekiq (5.2.7)
       connection_pool (~> 2.2, >= 2.2.2)
@@ -375,6 +377,7 @@ DEPENDENCIES
   rspec_api_documentation
   rubocop
   rubycritic
+  secure_credentials
   sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)

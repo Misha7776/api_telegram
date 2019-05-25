@@ -36,6 +36,9 @@ gem 'apitome'
 gem 'rack-cors'
 gem 'rspec_api_documentation'
 gem 'devise-jwt'
+gem 'secure_credentials'
+gem 'faker'
+
 
 group :development, :test do
   gem 'dotenv'
@@ -61,7 +64,6 @@ group :test do
   gem 'vcr'
   gem 'fakeredis'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'database_cleaner'
   gem 'webmock'
 end
