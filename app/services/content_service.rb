@@ -2,12 +2,16 @@ class ContentService
   def fetch
     object_array = []
     10.times do
-      object_array << { first_name: fake_first_name, last_name: fake_last_name, username: fake_username }
+      object_array << { id: uniq_id, first_name: fake_first_name, last_name: fake_last_name, username: fake_username }
     end
     object_array
   end
 
   private
+
+  def uniq_id
+    Faker::Number.number(5)
+  end
 
   def fake_first_name
     Faker::Name.first_name
