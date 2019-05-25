@@ -27,7 +27,8 @@ gem 'capistrano-rails', group: :development
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sidekiq'
 gem 'r_creds'
-gem 'redis'
+gem 'redis-rails', '~> 5'
+gem 'redis-namespace'
 gem 'oj'
 gem 'blueprinter'
 gem 'pagy'
