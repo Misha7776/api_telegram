@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :content, only: :index
     post '/auth/login', to: 'authentication#login'
   end
-  get '/*a', to: 'application#not_found'
+  telegram_webhook Telegram::WebhookController
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get '/*a', to: 'application#not_found'
 end
