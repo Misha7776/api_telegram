@@ -15,8 +15,8 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
 
   def help!(*)
     respond_with :message,
-                  text: User::HELP_ME,
-                  reply_markup: User.help_keyboards
+                 text: User::HELP_ME,
+                 reply_markup: User.help_keyboards
   end
 
   def schedule!(*)

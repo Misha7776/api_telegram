@@ -39,6 +39,7 @@ gem 'rspec_api_documentation'
 gem 'devise-jwt'
 gem 'secure_credentials'
 gem 'faker'
+gem 'httparty'
 
 
 group :development, :test do

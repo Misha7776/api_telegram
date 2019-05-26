@@ -1,5 +1,11 @@
 class ContentService
-  def fetch
+  def build_content
+    {
+      users: build_users
+    }
+  end
+
+  def build_users
     object_array = []
     10.times do
       object_array << { id: uniq_id, first_name: fake_first_name, last_name: fake_last_name, username: fake_username }
