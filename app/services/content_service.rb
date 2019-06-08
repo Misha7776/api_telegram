@@ -1,7 +1,8 @@
 class ContentService
   def build_content
     {
-      users: build_users
+      users: build_users,
+      settings: settings
     }
   end
 
@@ -29,5 +30,11 @@ class ContentService
 
   def fake_username
     Faker::Internet.user_name
+  end
+
+  def settings
+    @settings = Setting.all
+    return @settings unless @settings.empty?
+    { error: 'Settings not found' }
   end
 end
