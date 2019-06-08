@@ -35,12 +35,12 @@ gem 'pagy'
 gem 'api-pagination'
 gem 'apitome'
 gem 'rack-cors'
+gem 'rails-i18n'
 gem 'rspec_api_documentation'
 gem 'devise-jwt'
 gem 'secure_credentials'
 gem 'faker'
 gem 'httparty'
-
 
 group :development, :test do
   gem 'dotenv'

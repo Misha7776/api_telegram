@@ -1,33 +1,24 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  hello: "Hello! %{wawe}\nI'm a bot that can help you to know IIT schudel %{gring}\nChoose one of the option %{WINKING} to start searching"
+  help: "You need some help? %{FEARFUL}\nDon't worry I will help you %{RELIEVED}"
+  schedule: "This schedule menu. %{SMILING}\nPlease, choose your search criteria %{SEARCHING}"
+  about: "This Bot is Diploma project of the INTUOG, Information Technologies Institute\n Done by students of PI-15-2 group Push Mykhailo(@Gufyman) and Rostyslav Sheketa(@rostislauuu)\nCopyright %{COPYRIGHT} 2018"
+  teacher_schedule: 'Enter teacher full name (follow the format)'
+  group_schedule: 'Enter group name'
+  free_day: "The lucky man, on %{message} you have no lessons %{PARTY}"
+  warn_message: "You seem to have to enter in %{who}.\n%{first_name} please be careful %{SMILING}"
+  invalide_group: 'group name'
+  invalide_teacher: 'teach full name'
+  error: 'Unknown error'
+  today: 'Today'
+  tomorrow: 'Tomorrow'
+  week: 'Week'
+  month: 'Month'
+  just_group: 'group'
+  just_teacher: 'teacher'
+  about_button: 'About the Bot'
+  schedule_button: 'Schedule'
+  help_button: 'Help'
+  teacher_button: 'Teacher full name'
+  group_button: 'Group name'
+  search_message: "Now you are searching for schedule by: '%{name}' %{CHECK_MARK}\n To change the %{category} send me a new teacher full name\n Click /schedule to change the search criteria %{SEARCHING}\n Good luck! %{SMILING}"

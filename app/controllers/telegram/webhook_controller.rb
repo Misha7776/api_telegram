@@ -7,37 +7,53 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
   before_action :last_update, except: [:message]
 
   def start!(*)
-    binding.pry
     respond_with :message,
-                 text: User::GREETING,
+                 text: I18n.t('hello', wawe: User::WAVE, gring: User::GRING, WINKING: User::WINKING),
                  reply_markup: User.start_keyboards
   end
 
   def help!(*)
     respond_with :message,
-                 text: User::HELP_ME,
+                 text: I18n.t('help', FEARFUL: User::FEARFUL, RELIEVED: User::RELIEVED),
                  reply_markup: User.help_keyboards
   end
 
   def schedule!(*)
     respond_with :message,
-                 text: User::SCHEDULE,
+                 text: I18n.t('schedule', SMILING: User::SMILING, SEARCHING: User::SEARCHING),
                  reply_markup: User.schedule_keyboards
   end
 
   def about!(*)
     respond_with :message,
-                 text: User::ABOUT_TEXT
+                 text: I18n.t('about', COPYRIGHT: User::COPYRIGHT),
+                 reply_markup: nil
   end
 
   def teacher_schedule!(*)
     respond_with :message,
-                 text: 'Введи ПІБ викладача (дотримуйся формату)'
+                 text: I18n.t('teacher_schedule'),
+                 reply_markup: nil
   end
 
   def group_schedule!(*)
     respond_with :message,
-                 text: 'Введи назву групи'
+                 text: I18n.t('group_schedule'),
+                 reply_markup: nil
+  end
+
+  def ukrainian!(*)
+    I18n.locale = :ua
+    respond_with :message,
+                 text: 'Ви вибрали українську локалізацію',
+                 reply_markup: nil
+  end
+
+  def english!(*)
+    I18n.locale = :en
+    respond_with :message,
+                 text: 'You have chosen english localization',
+                 reply_markup: nil
   end
 
   def callback_query(data)
@@ -52,8 +68,12 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
       teacher_schedule!
     when User::SCHEDULE_COMMAND + User::GROUP_OPTION
       group_schedule!
+    when User::UKRAINIAN_COMMAND
+      ukrainian!
+    when User::ENGLISH_COMMAND
+      english!
     else
-      answer_callback_query 'Невідома помилка'
+      answer_callback_query I18n.t('error')
     end
   end
 
@@ -62,7 +82,7 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
       schedule_text = scraped_schedule(message)
       unless schedule_text.present?
         return respond_with :message,
-                            text: "Щасливчик, #{message['text'].downcase} у тебе немає пар #{User::PARTY}"
+                            text: I18n.t('free_day', message: message['text'].downcase, PARTY: User::PARTY)
       end
       schedule_text.each do |day, schedule|
         respond_with :message,
@@ -144,15 +164,16 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
   end
 
   def warn_message(who)
-    "Здаєть ти мав увести #{who}.\n"\
-    "#{@current_user[:first_name]} будь-ласка будь уважнішим #{User::SMILING}"
+    I18n.t('free_day', who: who, first_name: @current_user[:first_name], SMILING: User::SMILING)
   end
 
   def invalide_group
-    respond_with :message, text: warn_message('назву групи')
+    who = I18n.t('invalide_group')
+    respond_with :message, text: warn_message(who)
   end
 
   def invalide_teacher
-    respond_with :message, text: warn_message('ПІБ викладача')
+    who = I18n.t('invalide_teacher')
+    respond_with :message, text: warn_message(who)
   end
 end

@@ -31,7 +31,7 @@ class User < ApplicationRecord
              "Вибери будь-ласка критерії пошуку #{SEARCHING}".freeze
 
   # ************* DATE SEARCH TEXT MASSAGES *********************
-  DATE_CRITERIA = { 'Сьогодні' => 0, 'Завтра' => 1, 'Тиждень' => 7, 'Місяць' => 31 }.freeze
+  DATE_CRITERIA = { "#{I18n.t('today')}" => 0, "#{I18n.t('tomorrow')}" => 1, "#{I18n.t('week')}" => 7, "#{I18n.t('month')}" => 31 }.freeze
 
   # ************************* ABOUT BOT ****************************
   ABOUT_TEXT = "Бот є курсовим проектом ІФНГУНГ, Інституту Інформаційних Технологій\n"\
@@ -43,7 +43,9 @@ class User < ApplicationRecord
   HELP_COMMAND     = '/help'.freeze
   ABOUT_COMMAND    = '/about'.freeze
   SCHEDULE_COMMAND = '/schedule'.freeze
-  COMMANDS = [START_COMMAND, HELP_COMMAND, ABOUT_COMMAND, SCHEDULE_COMMAND]
+  UKRAINIAN_COMMAND = '/ukrainian'.freeze
+  ENGLISH_COMMAND = '/english'.freeze
+  COMMANDS = [START_COMMAND, HELP_COMMAND, ABOUT_COMMAND, SCHEDULE_COMMAND, UKRAINIAN_COMMAND, ENGLISH_COMMAND]
 
   # ************** COMMAND OPTIONS ***************************
   TEACHER_OPTION = ' teacher'.freeze
@@ -62,29 +64,32 @@ class User < ApplicationRecord
   FACULTY = '1008'.freeze
 
   # **************** SHEDULE REQUEST BUTTONS ********************
-  DATE_REQUEST_BUTTONS = [%w[Сьогодні Завтра], %w[Тиждень Місяць]].freeze
+  DATE_REQUEST_BUTTONS = [["#{I18n.t('today')}", "#{I18n.t('tomorrow')}"],
+                          ["#{I18n.t('week')}", "#{I18n.t('month')}"]].freeze
 
   def self.start_keyboards
     { inline_keyboard:
       [
-        [{ text: 'Допомога', callback_data: HELP_COMMAND },
-         { text: 'Розклад', callback_data: SCHEDULE_COMMAND }]
+        [{ text: I18n.t('help_button'), callback_data: HELP_COMMAND },
+         { text: I18n.t('schedule_button'), callback_data: SCHEDULE_COMMAND}],
+         [{ text: 'Уркаїнська мова', callback_data: UKRAINIAN_COMMAND },
+         { text: 'English language', callback_data: ENGLISH_COMMAND }]
       ] }
   end
 
   def self.help_keyboards
     { inline_keyboard:
       [
-        [{ text: 'Про Бота', callback_data: ABOUT_COMMAND },
-         { text: 'Розклад', callback_data: SCHEDULE_COMMAND }]
+        [{ text: I18n.t('about_button'), callback_data: ABOUT_COMMAND },
+         { text: I18n.t('schedule_button'), callback_data: SCHEDULE_COMMAND }]
       ] }
   end
 
   def self.schedule_keyboards
     { inline_keyboard:
       [
-        [{ text: 'ПІБ викладача', callback_data: SCHEDULE_COMMAND + TEACHER_OPTION },
-         { text: 'Назва групи', callback_data: SCHEDULE_COMMAND + GROUP_OPTION }]
+        [{ text: I18n.t('teacher_button'), callback_data: SCHEDULE_COMMAND + TEACHER_OPTION },
+         { text: I18n.t('group_button'), callback_data: SCHEDULE_COMMAND + GROUP_OPTION }]
       ] }
   end
 
@@ -95,11 +100,8 @@ class User < ApplicationRecord
 
   def search_message(criteria_name)
     name = bot_command_data[criteria_name.to_s]
-    category = criteria_name.to_s == 'group' ? 'групу' : 'викладача'
-    response = "Тепер пошук розкладу відбуватиметься по: '#{name}' #{CHECK_MARK}\n"\
-               "Щоб змінити #{category} надішли мені нове ім'я\n"\
-               "Натисни /schedule щоб змінити категорію пошуку #{SEARCHING}\n"\
-               "Нехай щастить! #{SMILING}"
+    category = criteria_name.to_s == 'group' ? I18n.t('just_group') : I18n.t('just_teacher')
+    response = I18n.t('search_message', name: name, CHECK_MARK: CHECK_MARK, category: category, SEARCHING: SEARCHING, SMILING: SMILING)
     response
   end
 

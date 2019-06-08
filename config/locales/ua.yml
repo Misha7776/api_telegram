@@ -1,0 +1,24 @@
+ua:
+  hello: "Вітаю! %{wawe}\n Я бот що допоможе тобі дізнаватися розклад ІІТ %{gring}\n Обери одну з опцій %{WINKING} для того щоб почати"
+  help: "Потрібна допомога? %{FEARFUL}\n Не хвилюйся я тобі допоможу %{RELIEVED}"
+  schedule: "Ти в меню розкладу. %{SMILING}\n Вибери будь-ласка критерії пошуку %{SEARCHING}"
+  about: "Бот є дипломним проектом ІФНГУНГ, Інституту Інформаційних Технологій\nВиконали студенти групи ПІ-15-2 Пуш Михайло(@Gufyman) та Ростислав Шекета(@rostislauuu)\nCopyright %{COPYRIGHT} 2018"
+  teacher_schedule: 'Введи ПІБ викладача (дотримуйся формату)'
+  group_schedule: 'Введи назву групи'
+  free_day: "Щасливчик, на %{message} у тебе немає пар %{PARTY}"
+  warn_message: "Здаєть ти мав увести %{who}.\n %{first_name} будь-ласка будь уважнішим %{SMILING}"
+  invalide_group: 'назву групи'
+  invalide_teacher: 'ПІБ викладача'
+  error: 'Невідома помилка'
+  today: 'Сьогодні'
+  tomorrow: 'Завтра'
+  week: 'Тиждень'
+  month: 'Місяць'
+  just_group: 'group'
+  just_teacher: 'teacher'
+  about_button: 'Про Бота'
+  schedule_button: 'Розклад'
+  help_button: 'Допомога'
+  teacher_button: 'ПІБ викладача'
+  group_button: 'Назва групи'
+  search_message: "Тепер пошук розкладу відбуватиметься по: '%{name}' %{CHECK_MARK}\n Щоб змінити %{category} надішли мені нове ім'я\n Натисни /schedule щоб змінити категорію пошуку %{SEARCHING}\n Нехай щастить! %{SMILING}"
