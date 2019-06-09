@@ -79,7 +79,7 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    if User::DATE_CRITERIA.key?(message['text']) && !User::COMMANDS.include?(session['last_command'])
+    if User.date_filter.key?(message['text']) && !User::COMMANDS.include?(session['last_command'])
       schedule_text = scraped_schedule(message)
       unless schedule_text.present?
         return respond_with :message,

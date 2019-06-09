@@ -98,9 +98,13 @@ class User < ApplicationRecord
                       selective: true } }
   end
 
+  def self.date_filter
+    { "#{I18n.t('today')}" => 0, "#{I18n.t('tomorrow')}" => 1, "#{I18n.t('week')}" => 7, "#{I18n.t('month')}" => 31 }
+  end
+
   def setup_dates(message)
     sdate = Time.now
-    edate = sdate + DATE_CRITERIA[message].days
+    edate = sdate + User.date_filter[message].days
     {
       sdate: sdate.strftime('%d.%m.%Y'),
       edate: edate.strftime('%d.%m.%Y')
