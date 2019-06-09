@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   validates_uniqueness_of :telegram_id
 
+  enum locale: [:ua, :en]
+
   # ******************** EMODJI ******************************
   WAVE      = "\xF0\x9F\x91\x8B".freeze
   GRING     = "\xF0\x9F\x98\x83".freeze
@@ -14,29 +16,8 @@ class User < ApplicationRecord
   CONFETY = "\xF0\x9F\x8E\x8A".freeze
   COPYRIGHT = "\xC2\xA9".freeze
 
-  # ******************* START MASSAGE ************************
-  GREETING = "Вітаю!#{WAVE}\n" \
-             "Я бот що допоможе тобі дізнаватися розклад ІІТ #{GRING}\n" \
-             "Обери одну з опцій #{WINKING} для того щоб почати".freeze
-
-  # ****************** HELP MASSAGE **************************
-  HELP_ME = "Потрібна допомога?#{FEARFUL}\n"\
-            "Не хвилюйся я тобі допоможу#{RELIEVED}".freeze
-
-  # ************** KEYBOARD MENU TEXT ************************
-  MENU = "Ти у меню контролю. Вибери потрібну тобі функцію #{SMILING}".freeze
-
-  # ************* SCHEDULE TEXT MASSAGE *********************
-  SCHEDULE = "Ти в меню розкладу.#{SMILING}"\
-             "Вибери будь-ласка критерії пошуку #{SEARCHING}".freeze
-
   # ************* DATE SEARCH TEXT MASSAGES *********************
   DATE_CRITERIA = { "#{I18n.t('today')}" => 0, "#{I18n.t('tomorrow')}" => 1, "#{I18n.t('week')}" => 7, "#{I18n.t('month')}" => 31 }.freeze
-
-  # ************************* ABOUT BOT ****************************
-  ABOUT_TEXT = "Бот є курсовим проектом ІФНГУНГ, Інституту Інформаційних Технологій\n"\
-               "Виконали студенти групи ПІ-15-2 Пуш Михайло(@Gufyman) та Ростислав Шекета(@rostislauuu)\n"\
-               "Copyright #{COPYRIGHT} 2018".freeze
 
   # *************** USER COMMANDS ****************************
   START_COMMAND    = '/start'.freeze
@@ -60,12 +41,9 @@ class User < ApplicationRecord
   DEFAULT_ENCODING_FOR_REQUEST = 'windows-1251'.freeze
   UTF_8_ENCODING = 'utf-8'.freeze
 
-  # ************** SCHEDULE SITE URL PARANS **********************
-  FACULTY = '1008'.freeze
-
-  # **************** SHEDULE REQUEST BUTTONS ********************
-  DATE_REQUEST_BUTTONS = [["#{I18n.t('today')}", "#{I18n.t('tomorrow')}"],
-                          ["#{I18n.t('week')}", "#{I18n.t('month')}"]].freeze
+  def update_locale(locale_sym)
+    update(locale: self.class.locales[locale_sym])
+  end
 
   def self.start_keyboards
     { inline_keyboard:
@@ -113,7 +91,8 @@ class User < ApplicationRecord
 
   def date_keyboard(criteria_name:)
     { text: search_message(criteria_name),
-      reply_markup: { keyboard: DATE_REQUEST_BUTTONS,
+      reply_markup: { keyboard: [["#{I18n.t('today')}", "#{I18n.t('tomorrow')}"],
+                                 ["#{I18n.t('week')}", "#{I18n.t('month')}"]],
                       resize_keyboard: false,
                       one_time_keyboard: false,
                       selective: true } }

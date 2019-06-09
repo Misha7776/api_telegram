@@ -12,8 +12,7 @@ class ScheduleScraper < BaseScraper
   end
 
   def submit_form(start_date: nil, end_date: nil)
-    response = post(@base_url.to_str, body: { faculty: User::FACULTY,
-                                              teacher: @teacher,
+    response = post(@base_url.to_str, body: { teacher: @teacher,
                                               group: @group,
                                               sdate: CGI.unescape(start_date),
                                               edate: CGI.unescape(end_date),

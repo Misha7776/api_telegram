@@ -5,6 +5,8 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
   before_action :current_user
   before_action :create_user, only: :start!
   before_action :last_update, except: [:message]
+  before_action :set_locale, except: [:start!, :ukrainian!, :english!]
+  after_action :call_back_answer, only: [:callback_query]
 
   def start!(*)
     respond_with :message,
@@ -26,34 +28,33 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
 
   def about!(*)
     respond_with :message,
-                 text: I18n.t('about', COPYRIGHT: User::COPYRIGHT),
-                 reply_markup: nil
+                 text: I18n.t('about', COPYRIGHT: User::COPYRIGHT)
   end
 
   def teacher_schedule!(*)
     respond_with :message,
-                 text: I18n.t('teacher_schedule'),
-                 reply_markup: nil
+                 text: I18n.t('teacher_schedule')
   end
 
   def group_schedule!(*)
     respond_with :message,
-                 text: I18n.t('group_schedule'),
-                 reply_markup: nil
+                 text: I18n.t('group_schedule')
   end
 
   def ukrainian!(*)
-    I18n.locale = :ua
+    @current_user.update_locale(:ua)
+    set_locale
     respond_with :message,
-                 text: 'Ви вибрали українську локалізацію',
-                 reply_markup: nil
+                 text: 'Ви вибрали українську локалізацію'
+    start!
   end
 
   def english!(*)
-    I18n.locale = :en
+    @current_user.update_locale(:en)
+    set_locale
     respond_with :message,
-                 text: 'You have chosen english localization',
-                 reply_markup: nil
+                 text: 'You have chosen english localization'
+    start!
   end
 
   def callback_query(data)
@@ -95,6 +96,14 @@ class Telegram::WebhookController < Telegram::Bot::UpdatesController
   end
 
   private
+
+  def set_locale
+    I18n.locale = @current_user.locale.to_sym
+  end
+
+  def call_back_answer
+    answer_callback_query(nil)
+  end
 
   def scraped_schedule(message)
     intervals = @current_user.setup_dates(message['text'])
