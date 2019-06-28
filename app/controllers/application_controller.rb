@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  before_action :set_raven_context
+
   def not_found
     render json: { error: 'not_found' }
   end
@@ -17,5 +19,10 @@ class ApplicationController < ActionController::API
   def jwt_token
     header = request.headers['Authorization']
     header&.split(' ')&.last
+  end
+
+  def set_raven_context
+    Raven.user_context(id: session[:current_user_id]) # or anything else in session
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

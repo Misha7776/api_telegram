@@ -33,6 +33,7 @@ module ApiTelegram
     config.load_defaults 5.2
     config.i18n.available_locales = [:en, :ua]
     config.i18n.default_locale = :ua
+    config.middleware.use ActionDispatch::Flash
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
@@ -43,5 +44,10 @@ module ApiTelegram
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.filter_parameters << :password
+
+    Raven.configure do |config|
+      config.dsn = 'https://5966046f4239446eafea548038459496:b71fcb0e6a8240f0aae9a608b18437d0@sentry.io/1492468'
+    end
   end
 end

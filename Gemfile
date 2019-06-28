@@ -41,9 +41,16 @@ gem 'devise-jwt'
 gem 'secure_credentials'
 gem 'faker'
 gem 'httparty'
+gem 'rails_db'
+gem 'sentry-raven'
+gem 'axlsx', '2.1.0.pre'
+gem 'axlsx_rails'
+gem 'paper_trail'
+gem 'scout_apm'
 
 group :development, :test do
   gem 'dotenv'
+  gem 'rails-erd'
   gem 'pry'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

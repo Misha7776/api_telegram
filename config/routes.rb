@@ -8,6 +8,6 @@ Rails.application.routes.draw do
     post '/auth/login', to: 'authentication#login'
   end
   telegram_webhook Telegram::WebhookController
-
+  mount RailsDb::Engine => '/rails/db', :as => 'api_rails_db'
   get '/*a', to: 'application#not_found'
 end

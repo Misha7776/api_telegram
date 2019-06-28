@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   validates_uniqueness_of :telegram_id
-
+  has_paper_trail
   enum locale: [:ua, :en]
 
   # ******************** EMODJI ******************************
